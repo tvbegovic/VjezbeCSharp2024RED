@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TocnoVrijeme", "TocnoVrijeme\TocnoVrijeme.csproj", "{ECBB01B7-160E-4F4E-A44D-64F561F3B34E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TocnoVrijeme", "TocnoVrijeme\TocnoVrijeme.csproj", "{ECBB01B7-160E-4F4E-A44D-64F561F3B34E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProsjekOcjena", "ProsjekOcjena\ProsjekOcjena.csproj", "{D23B4DBB-621C-4B81-B01B-9E83287323BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProsjekOcjena", "ProsjekOcjena\ProsjekOcjena.csproj", "{D23B4DBB-621C-4B81-B01B-9E83287323BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProsjekOcjena_TryParse", "ProsjekOcjena_TryParse\ProsjekOcjena_TryParse.csproj", "{8351E88D-2A24-4C6F-9E20-7C25EC607251}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatumiRodenja", "DatumiRodenja\DatumiRodenja.csproj", "{BB1608A2-E8EE-4BFA-A974-CFB9EBEA83A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{D23B4DBB-621C-4B81-B01B-9E83287323BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D23B4DBB-621C-4B81-B01B-9E83287323BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D23B4DBB-621C-4B81-B01B-9E83287323BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8351E88D-2A24-4C6F-9E20-7C25EC607251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8351E88D-2A24-4C6F-9E20-7C25EC607251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8351E88D-2A24-4C6F-9E20-7C25EC607251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8351E88D-2A24-4C6F-9E20-7C25EC607251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB1608A2-E8EE-4BFA-A974-CFB9EBEA83A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB1608A2-E8EE-4BFA-A974-CFB9EBEA83A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB1608A2-E8EE-4BFA-A974-CFB9EBEA83A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB1608A2-E8EE-4BFA-A974-CFB9EBEA83A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
