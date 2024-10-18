@@ -26,3 +26,24 @@ else
 {
     Console.WriteLine("Osobe su rođene na isti datum");
 }
+
+if(datum1.Month < datum2.Month)
+{
+    Console.WriteLine("Osoba 1 slavi rođendan prije osobe2");
+}
+else if(datum1.Month > datum2.Month)
+{
+    Console.WriteLine("Osoba 2 slavi rođendan prije osobe 1");
+}
+else if(datum1.Day < datum2.Day)
+{
+    Console.WriteLine("Osoba 1 slavi rođendan prije osobe2");
+}
+else if( datum1.Day > datum2.Day)
+{
+    Console.WriteLine("Osoba 2 slavi rođendan prije osobe 1");
+}
+else
+{
+    Console.WriteLine("Osobe slave rođendan isti dan");
+}
