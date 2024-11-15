@@ -41,6 +41,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.dgvIgre = new System.Windows.Forms.DataGridView();
+            this.btnSpremi = new System.Windows.Forms.Button();
+            this.btnUcitaj = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIgre)).BeginInit();
             this.SuspendLayout();
             // 
             // btnUnesi
@@ -163,11 +167,42 @@
             this.label1.TabIndex = 36;
             this.label1.Text = "Naziv:";
             // 
+            // dgvIgre
+            // 
+            this.dgvIgre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvIgre.Location = new System.Drawing.Point(13, 159);
+            this.dgvIgre.Name = "dgvIgre";
+            this.dgvIgre.Size = new System.Drawing.Size(719, 351);
+            this.dgvIgre.TabIndex = 49;
+            // 
+            // btnSpremi
+            // 
+            this.btnSpremi.Location = new System.Drawing.Point(556, 53);
+            this.btnSpremi.Name = "btnSpremi";
+            this.btnSpremi.Size = new System.Drawing.Size(122, 33);
+            this.btnSpremi.TabIndex = 50;
+            this.btnSpremi.Text = "Spremi u datoteku";
+            this.btnSpremi.UseVisualStyleBackColor = true;
+            this.btnSpremi.Click += new System.EventHandler(this.btnSpremi_Click);
+            // 
+            // btnUcitaj
+            // 
+            this.btnUcitaj.Location = new System.Drawing.Point(556, 93);
+            this.btnUcitaj.Name = "btnUcitaj";
+            this.btnUcitaj.Size = new System.Drawing.Size(122, 38);
+            this.btnUcitaj.TabIndex = 51;
+            this.btnUcitaj.Text = "Čitaj iz datoteke";
+            this.btnUcitaj.UseVisualStyleBackColor = true;
+            this.btnUcitaj.Click += new System.EventHandler(this.btnUcitaj_Click);
+            // 
             // Glavna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 366);
+            this.ClientSize = new System.Drawing.Size(753, 522);
+            this.Controls.Add(this.btnUcitaj);
+            this.Controls.Add(this.btnSpremi);
+            this.Controls.Add(this.dgvIgre);
             this.Controls.Add(this.btnUnesi);
             this.Controls.Add(this.txtOpis);
             this.Controls.Add(this.txtIzdavac);
@@ -184,6 +219,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Glavna";
             this.Text = "Popis igara";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIgre)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,6 +240,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgvIgre;
+        private System.Windows.Forms.Button btnSpremi;
+        private System.Windows.Forms.Button btnUcitaj;
     }
 }
 

@@ -69,6 +69,8 @@ namespace Klase
             }
             set
             {
+                if (value > DateTime.Now)
+                    throw new ArgumentException("Datum ne smije biti u budućnosti");
                 this.datumIzdavanja = value;
             }
         }
@@ -81,6 +83,8 @@ namespace Klase
             }
             set
             {
+                if (value < 0)
+                    throw new ArgumentException("Cijena ne smije biti negativna");
                 this.cijena = value;
             }
         }
