@@ -76,9 +76,19 @@ namespace DemoBaza
         {
           idPublisher = tempInt;
         }
-        //napisati SQL sa parametrima i vratiti zapise koji odgovaraju kriterijima
-        //Prikazati sve u gridu dgvSelectCriteria + broj zapisa u labeli
-        Cursor.Current = Cursors.WaitCursor;
+                string text = txtNameContains.Text;
+                //napisati SQL sa parametrima i vratiti zapise koji odgovaraju kriterijima
+        string sql = @"SELECT * FROM Game
+        WHERE (idGenre = @idGenre OR @idGenre IS NULL)
+        AND (idPublisher = @idPublisher OR @idPublisher IS NULL)
+        AND (price >= @priceFrom OR @priceFrom IS NULL)
+        AND (price <= @priceTo OR @priceTo IS NULL)
+        AND (title LIKE @text OR @text IS NULL)";
+        var parameters = new { idGenre, priceFrom, priceTo, idPublisher, text = $"%{text}%" };
+        var games = connection.Query<Game>(sql, parameters);
+                dgvSelectCriteria.DataSource = games;
+                    //Prikazati sve u gridu dgvSelectCriteria + broj zapisa u labeli
+                    Cursor.Current = Cursors.WaitCursor;
         
       }
 
@@ -122,13 +132,14 @@ namespace DemoBaza
 
     private void btnInsert_Click(object sender, EventArgs e)
     {
-      //Kreirati objekt game i postaviti sve podatke iz forme
-      /*game.Title = txtTitleInsert.Text;
+            //Kreirati objekt game i postaviti sve podatke iz forme
+            Game game = new Game();
+      game.Title = txtTitleInsert.Text;
       game.IdGenre = int.TryParse(txtIdGenreInsert.Text, out int tempInt) ? tempInt : (int?)null;
       game.IdPublisher = int.TryParse(txtPublisherInsert.Text, out tempInt) ? tempInt : (int?)null;
       game.IdDeveloper = int.TryParse(txtDeveloperInsert.Text, out tempInt) ? tempInt : (int?)null;
-      game.Price = decimal.TryParse(txtPriceInsert.Text, out decimal tempDecimal) ? tempDecimal : (decimal?)null;
-      game.ReleaseDate = DateTime.TryParse(txtReleaseDateInsert.Text, out DateTime tempDateTime) ? tempDateTime : (DateTime?)null;*/
+      game.Price = double.TryParse(txtPriceInsert.Text, out double tempDecimal) ? tempDecimal : (double?)null;
+      game.ReleaseDate = DateTime.TryParse(txtReleaseDateInsert.Text, out DateTime tempDateTime) ? tempDateTime : (DateTime?)null;
       if (!CheckConnectionString(out string connectionString))
       {
         return;
@@ -138,7 +149,13 @@ namespace DemoBaza
         try
         {
           Cursor.Current = Cursors.WaitCursor;
-          //Poslati SQL za unos novog zapisa i dohvatiti novi id. Ispisati novi id u labelu i poruku Uspješno unesen zapis
+                    //Poslati SQL za unos novog zapisa i dohvatiti novi id.
+        string sql = @"INSERT INTO Game(title, idGenre, idPublisher, idDeveloper, price, releaseDate) OUTPUT inserted.id
+        VALUES(@title, @idGenre, @idPublisher, @idDeveloper, @price, @releaseDate)";
+        game.Id = connection.ExecuteScalar<int>(sql, game);
+                    //Ispisati novi id u labelu i poruku Uspješno unesen zapis
+        lblIdInsert.Text = game.Id.ToString();
+        lblInsertResult.Text = "Zapis uspješno kreiran";
 
         }
         catch (Exception ex)
