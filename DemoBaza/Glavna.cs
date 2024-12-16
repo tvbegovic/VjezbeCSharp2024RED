@@ -113,18 +113,31 @@ namespace DemoBaza
         }
         Cursor.Current = Cursors.WaitCursor;
         var parameters = new { id };
-        //Pozvati SQL koji će vratiti jedan zapis sa zadanim id-om
+                //Pozvati SQL koji će vratiti jedan zapis sa zadanim id-om
+        string sql = "SELECT * FROM Game WHERE id = @id";
+        Game game = connection.QueryFirstOrDefault<Game>(sql, parameters);
+        if(game == null)
+        {
+            lblIdValue.Text = "";
+            lblTitleValue.Text = "";
+            lblPublisherValue.Text = "";
+            lblPriceValue.Text = "";
+            lblDeveloperValue.Text = "";
+            lblReleaseDateValue.Text = "";
+            lblGenreValue.Text = "";
+            return;
+        }
         //Provjeriti ako zapis postoji, ako ne očistiti formu i izaći
         Cursor.Current = Cursors.Default;
 
         //Otkomentirati kod ispod
-        /*lblIdValue.Text = game.Id.ToString();
+        lblIdValue.Text = game.Id.ToString();
         lblTitleValue.Text = game.Title;
         lblGenreValue.Text = game.IdGenre.HasValue ? game.IdGenre.ToString() : "N/A";
         lblPublisherValue.Text = game.IdPublisher.HasValue ? game.IdPublisher.ToString() : "N/A";
         lblDeveloperValue.Text = game.IdDeveloper.HasValue ? game.IdDeveloper.ToString() : "N/A";
         lblPriceValue.Text = game.Price.HasValue ? game.Price.Value.ToString("C") : "N/A";
-        lblReleaseDateValue.Text = game.ReleaseDate.HasValue ? game.ReleaseDate.Value.ToString("d") : "N/A";*/
+        lblReleaseDateValue.Text = game.ReleaseDate.HasValue ? game.ReleaseDate.Value.ToString("d") : "N/A";
       }
     }
 
@@ -196,18 +209,25 @@ namespace DemoBaza
       using (var connection = new SqlConnection(connectionString))
       {
         Cursor.Current = Cursors.WaitCursor;
-        //Dohvatiti igru sa zadanim id-om
+                //Dohvatiti igru sa zadanim id-om
+        string sql = "SELECT * FROM Game WHERE id = @id";
+        var parameters = new { id };
+        Game game = connection.QueryFirstOrDefault<Game>(sql, parameters);
         Cursor.Current = Cursors.Default;
         //Ako igra ne postoji, ispisati poruku i izaći
-
-        //Otkomentirati kod ispod
-        //txtTitleUpdate.Text = game.Title;
-        //txtIdGenreUpdate.Text = game.IdGenre.HasValue ? game.IdGenre.ToString() : string.Empty;
-        //txtIdPublisherUpdate.Text = game.IdPublisher.HasValue ? game.IdPublisher.ToString() : string.Empty;
-        //txtIdDeveloperUpdate.Text = game.IdDeveloper.HasValue ? game.IdDeveloper.ToString() : string.Empty;
-        //txtPriceUpdate.Text = game.Price.HasValue ? game.Price.ToString() : string.Empty;
-        //txtReleaseDateUpdate.Text = game.ReleaseDate.HasValue ? game.ReleaseDate.Value.ToString("d") : string.Empty;
-      }
+        if(game == null)
+        {
+            MessageBox.Show("Igra sa zadanim id-om ne postoji");
+            return;
+        }
+                //Otkomentirati kod ispod
+        txtTitleUpdate.Text = game.Title;
+        txtIdGenreUpdate.Text = game.IdGenre.HasValue ? game.IdGenre.ToString() : string.Empty;
+        txtIdPublisherUpdate.Text = game.IdPublisher.HasValue ? game.IdPublisher.ToString() : string.Empty;
+        txtIdDeveloperUpdate.Text = game.IdDeveloper.HasValue ? game.IdDeveloper.ToString() : string.Empty;
+        txtPriceUpdate.Text = game.Price.HasValue ? game.Price.ToString() : string.Empty;
+        txtReleaseDateUpdate.Text = game.ReleaseDate.HasValue ? game.ReleaseDate.Value.ToString("d") : string.Empty;
+            }
 
     }
 
@@ -232,23 +252,26 @@ namespace DemoBaza
         MessageBox.Show("Id mora biti broj.");
         return;
       }
-      //Kreirati objekt game i postaviti sve podatke iz forme
-
-      //Otkomentirati kod ispod
-      //game.Id = id;
-      //game.Title = txtTitleUpdate.Text;
-      //game.IdGenre = int.TryParse(txtIdGenreUpdate.Text, out int tempInt) ? tempInt : (int?)null;
-      //game.IdPublisher = int.TryParse(txtIdPublisherUpdate.Text, out tempInt) ? tempInt : (int?)null;
-      //game.IdDeveloper = int.TryParse(txtIdDeveloperUpdate.Text, out tempInt) ? tempInt : (int?)null;
-      //game.Price = decimal.TryParse(txtPriceUpdate.Text, out decimal tempDecimal) ? tempDecimal : (decimal?)null;
-      //game.ReleaseDate = DateTime.TryParse(txtReleaseDateUpdate.Text, out DateTime tempDateTime) ? tempDateTime : (DateTime?)null;
-      using (var connection = new SqlConnection(connectionString))
+        //Kreirati objekt game i postaviti sve podatke iz forme
+        Game game = new Game();
+            //Otkomentirati kod ispod
+        game.Id = id;
+        game.Title = txtTitleUpdate.Text;
+        game.IdGenre = int.TryParse(txtIdGenreUpdate.Text, out int tempInt) ? tempInt : (int?)null;
+        game.IdPublisher = int.TryParse(txtIdPublisherUpdate.Text, out tempInt) ? tempInt : (int?)null;
+        game.IdDeveloper = int.TryParse(txtIdDeveloperUpdate.Text, out tempInt) ? tempInt : (int?)null;
+        game.Price = double.TryParse(txtPriceUpdate.Text, out double tempDecimal) ? tempDecimal : (double?)null;
+        game.ReleaseDate = DateTime.TryParse(txtReleaseDateUpdate.Text, out DateTime tempDateTime) ? tempDateTime : (DateTime?)null;
+            using (var connection = new SqlConnection(connectionString))
       {
         try
         {
           Cursor.Current = Cursors.WaitCursor;
-          //Pozvati SQL UPDATE i provjeriti broj ažuriranih redaka
-          
+            //Pozvati SQL UPDATE i provjeriti broj ažuriranih redaka
+            string sql = @"UPDATE Game SET title = @title, idGenre = @idGenre, idPublisher = @idPublisher, idDeveloper = @idDeveloper, price = @price,
+	           releaseDate = @releaseDate
+                WHERE id = @id";
+           connection.Execute(sql, game);
           Cursor.Current = Cursors.Default;
         }
         catch (Exception ex)
@@ -276,7 +299,13 @@ namespace DemoBaza
       {
         return;
       }
-      //Učitaj sve zapise iz tablice Game i prikaži u gridu dgvDelete
+            //Učitaj sve zapise iz tablice Game i prikaži u gridu dgvDelete
+    string sql = "SELECT * FROM Game";
+    using(var connection = new SqlConnection(connectionString))
+    {
+        var igre = connection.Query<Game>(sql).ToList();
+        dgvDelete.DataSource = igre;
+    }
       //Koristi BindingList<Game> i Dapper
       
     }
@@ -303,9 +332,12 @@ namespace DemoBaza
         try
         {
           Cursor.Current = Cursors.WaitCursor;
-          //Pozvati SQL DELETE i provjeriti broj obrisanih redaka
-          //Ukloniti zapis iz liste koristeći dgvDelete.Rows.Remove(selectedRow);
-          Cursor.Current = Cursors.Default;
+                    //Pozvati SQL DELETE i provjeriti broj obrisanih redaka
+        string sql = "DELETE FROM Game WHERE id = @id";
+        int id = (selectedRow.DataBoundItem as Game).Id;
+        var parameters = new { id };
+        connection.Execute(sql, parameters);
+                    Cursor.Current = Cursors.Default;
         }
         catch (Exception ex)
         {
