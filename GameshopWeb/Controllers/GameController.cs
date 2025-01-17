@@ -59,8 +59,13 @@ namespace GameshopWeb.Controllers
             {
                 string textParam = $"%{text}%";
                 return conn.Query<Game>(
-                    @"SELECT * FROM Game
-                      WHERE Title LIKE @textParam", new
+                    @"SELECT Game.* FROM Game
+                    LEFT OUTER JOIN Genre ON Game.idGenre = Genre.id
+                    LEFT OUTER JOIN Company Publisher ON Game.idPublisher = Publisher.id
+                    LEFT OUTER JOIN Company Developer ON Game.idDeveloper = Developer.id
+                    WHERE Title LIKE @textParam OR Genre.Name LIKE @textParam
+                    OR Publisher.name LIKE @textParam OR Developer.name LIKE @textParam
+                    OR @textParam IS NULL", new
                     {
                         textParam
                     }).ToList();
