@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/GameshopWeb/_wwwroot
+/GameshopWeb/wwwroot-ver2.zip
