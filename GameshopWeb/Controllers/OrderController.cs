@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -39,6 +40,23 @@ namespace GameshopWeb.Controllers
                     detail.IdOrder = order.Id;
                     conn.Execute(sqlDetail, detail);
                 }
+            }
+        }
+
+        [HttpGet("forUser/{idUser}")]
+        [Authorize]
+        public List<Order> GetOrdersForUser(int idUser)
+        {
+            string sqlOrders = "SELECT * FROM [Order] WHERE idUser = @idUser";
+            using (var conn = new SqlConnection(configuration.GetConnectionString("connString")))
+            {
+                List<Order> orders = conn.Query<Order>(sqlOrders, new { idUser }).ToList();
+                foreach (var order in orders)
+                {
+                    string sqlDetails = "SELECT * FROM OrderDetail WHERE idOrder = @id";
+                    order.Details = conn.Query<OrderDetail>(sqlDetails, new { id = order.Id }).ToList();
+                }
+                return orders;
             }
         }
     }
