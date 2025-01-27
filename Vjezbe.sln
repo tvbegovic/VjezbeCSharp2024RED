@@ -33,7 +33,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoBaza", "DemoBaza\DemoBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksApp", "BooksApp\BooksApp.csproj", "{FF7A8781-D1BA-48D0-9F3F-C7FB06F4E25C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameshopWeb", "GameshopWeb\GameshopWeb.csproj", "{6DDC9AAD-2BC0-4576-98AB-C5B9887FE1AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameshopWeb", "GameshopWeb\GameshopWeb.csproj", "{6DDC9AAD-2BC0-4576-98AB-C5B9887FE1AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineshopWeb", "OnlineshopWeb\OnlineshopWeb.csproj", "{AE5637FC-EDE6-4128-BAEC-D0DDC8425BAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{6DDC9AAD-2BC0-4576-98AB-C5B9887FE1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DDC9AAD-2BC0-4576-98AB-C5B9887FE1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DDC9AAD-2BC0-4576-98AB-C5B9887FE1AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE5637FC-EDE6-4128-BAEC-D0DDC8425BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE5637FC-EDE6-4128-BAEC-D0DDC8425BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE5637FC-EDE6-4128-BAEC-D0DDC8425BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE5637FC-EDE6-4128-BAEC-D0DDC8425BAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
