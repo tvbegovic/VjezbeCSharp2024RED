@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -37,6 +38,7 @@ namespace OnlineshopWeb.Controllers
         }
 
         [HttpPost("")]
+        [Authorize]
         public void CreateProduct(Product product)
         {
             string sql = @"INSERT INTO Product(
@@ -47,6 +49,34 @@ namespace OnlineshopWeb.Controllers
             using (var conn = new SqlConnection(configuration.GetConnectionString("connString")))
             {
                 conn.Execute(sql, product);
+            }
+        }
+
+        [HttpPut("")]
+        [Authorize]
+        public void UpdateProduct(Product product)
+        {
+            string sql = @"UPDATE Product SET            Name=@Name,Code=@Code,Price=@Price,IdManufacturer=@IdManufacturer,IdCategory=@IdCategory
+            WHERE id = @id";
+            using (var conn = new SqlConnection(configuration.GetConnectionString("connString")))
+            {
+                conn.Execute(sql, product);
+            }
+
+        }
+
+        [HttpGet("search")]
+        public List<Product> Search(string name, double? priceFrom, double? priceTo)
+        {
+            string sql = @"SELECT * FROM Product
+            WHERE 
+            (Name LIKE @name OR @name IS NULL) AND
+            (Price >= @pricefrom OR @pricefrom IS NULL) AND
+            (Price <= @priceTo OR @priceTo IS NULL)";
+            using (var conn = new SqlConnection(configuration.GetConnectionString("connString")))
+            {
+                string nameParam = $"%{name}%";
+                return conn.Query<Product>(sql, new { name = nameParam, priceFrom, priceTo }).ToList();
             }
         }
     }
